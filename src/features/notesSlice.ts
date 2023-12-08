@@ -1,6 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 export type Note = {
+    id: string;
     title: string;
     content: string;
     color: string;
