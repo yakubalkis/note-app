@@ -1,25 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import NoteList from './components/NoteList';
+import { Stack } from '@mui/material';
+import { useAppSelector } from './features/hooks';
+import NoteForm from './components/NoteForm';
 
 function App() {
+  const isShowForm = useAppSelector(state => state.notesSlice.isShowForm);
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Stack className="App" 
+          display="flex"
+          justifyContent="center" 
+          alignItems="center"
+          minHeight="100vh"
+          flexDirection="column"
+          overflow="hidden"          
+          >
+      {!isShowForm ? <NoteList /> : <NoteForm />}
+    </Stack> 
   );
 }
 
