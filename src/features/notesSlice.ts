@@ -26,8 +26,17 @@ export const notesSlice = createSlice({
             state.isShowForm = action.payload;
         },
         addNote(state, action: PayloadAction<Note>) {
-            state.notes = [action.payload, ...state.notes];
+            state.notes = [action.payload, ...state.notes]; // add new note to the top of list
             localStorage.setItem("notes", JSON.stringify(state.notes));
+        },
+        updateNote(state, action: PayloadAction<Note>) {
+            state.notes = state.notes.map((note) => {
+                if(note.id !== action.payload.id) {
+                    return note;
+                } else { // update item
+                    return action.payload;
+                }
+            })
         },
         deleteNote(state, action: PayloadAction<string>) {
             state.notes = state.notes.filter((note) => {
@@ -44,4 +53,4 @@ export const notesSlice = createSlice({
     }
 });
 
-export const {setIsShowForm, addNote, setNotesFromLocalStorage, deleteNote} = notesSlice.actions;
+export const {setIsShowForm, addNote, updateNote, deleteNote, setNotesFromLocalStorage } = notesSlice.actions;
