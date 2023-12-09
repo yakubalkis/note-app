@@ -1,9 +1,9 @@
 import { Avatar, Button, Divider, ListItem, ListItemAvatar, ListItemIcon, ListItemText, Stack, Typography } from "@mui/material";
+import { useAppDispatch } from "../features/hooks";
+import { Note as NoteType, deleteNote, setIsShowForm } from "../features/notesSlice";
 import PinIcon from "../img/pin-icon.png"; 
 import TrashIcon from "../img/icons-trash.png";
 import WriteIcon from "../img/icons-write.png";
-import { Note as NoteType, deleteNote, setIsShowForm } from "../features/notesSlice";
-import { useAppDispatch } from "../features/hooks";
 
 
 const red = "#890000";
@@ -26,23 +26,26 @@ export default function Note({id, title, content, color, date}: NoteType) {
     return(
         <>
         <ListItem>
-            <ListItemIcon>
+            <ListItemIcon sx={{marginBottom: "1.5rem"}}>
                 <ListItemAvatar>
-                    <Avatar variant="square" src={PinIcon} sx={{bgcolor: color}} />
+                    <Avatar variant="square" src={PinIcon} sx={{bgcolor: color==="red" ? red : color==="blue" ? blue : color==="yellow" ? yellow : "" }} />
                 </ListItemAvatar>
             </ListItemIcon>
             <ListItemText 
+                sx={{marginBottom: "2.5rem"}}
                 primary={<Typography sx={{fontWeight:"900"}}>{title}</Typography>}
                 secondary={content} 
                 secondaryTypographyProps={{sx: {fontFamily: "Inter, sans-serif;"}}}
             />
             <Typography sx={{position:"absolute", bottom: "0",opacity:"0.5",fontSize:"0.9rem"}}>{date}</Typography>
             <Stack direction="column" spacing={1} sx={{marginLeft: "5px"}}>
-                <Button variant="contained" color="error" size="small" onClick={() => handleDelete(id)}>
-                    <img src={TrashIcon} />
+                <Button variant="contained" color="error" size="small" sx={{
+                    
+                    }} onClick={() => handleDelete(id)}>
+                    <img style={{width: "20px"}} src={TrashIcon} />
                 </Button>
                 <Button variant="contained" color="success" size="small" onClick={() => handleUpdate(id)}>
-                    <img src={WriteIcon} />
+                    <img style={{width: "20px"}} src={WriteIcon} />
                 </Button>
             </Stack> 
         </ListItem>
