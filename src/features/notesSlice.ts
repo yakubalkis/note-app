@@ -27,9 +27,21 @@ export const notesSlice = createSlice({
         },
         addNote(state, action: PayloadAction<Note>) {
             state.notes = [action.payload, ...state.notes];
+            localStorage.setItem("notes", JSON.stringify(state.notes));
         },
-
+        deleteNote(state, action: PayloadAction<string>) {
+            state.notes = state.notes.filter((note) => {
+                return note.id !== action.payload;
+            });
+            localStorage.setItem("notes", JSON.stringify(state.notes));
+        },
+        setNotesFromLocalStorage(state) {
+            const notes = localStorage.getItem("notes");
+            if(notes !== null) {
+                state.notes = JSON.parse(notes);
+            }
+        },
     }
 });
 
-export const {setIsShowForm, addNote} = notesSlice.actions;
+export const {setIsShowForm, addNote, setNotesFromLocalStorage, deleteNote} = notesSlice.actions;
