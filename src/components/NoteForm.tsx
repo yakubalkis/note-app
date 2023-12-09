@@ -3,13 +3,19 @@ import BackIcon from "../img/icon-back.png";
 import { useAppDispatch, useAppSelector } from "../features/hooks";
 import { addNote, setIsShowForm } from "../features/notesSlice";
 import { useState } from "react";
+import uniqueId from 'lodash/uniqueId';
 import getDate from "../utils/getDate";
 
 
 export default function NoteForm() {
     const dispatch = useAppDispatch();
     const notes = useAppSelector(state => state.notesSlice.notes);
-    const [note, setNote] = useState({title: "", content:"", color: "", date: getDate()});
+    const [note, setNote] = useState({
+                                        id:uniqueId((Math.floor(Math.random() * (+100)))+"_"), 
+                                        title: "", content:"", 
+                                        color: "", 
+                                        date: getDate()
+                                    });
     const [error, setError] = useState(false);
 
     function handleClickBackAndCancel() {
@@ -27,20 +33,17 @@ export default function NoteForm() {
         });
     }
 
-    function handleSaveBtn() {
+    async function handleSaveBtn() {
         const title = note.title.replace(/\s+/g,' ').trim(); // remove junk spaces
         const content = note.content.replace(/\s+/g,' ').trim();
        
         if(title !== "" && content !== "") { // check if string is blank
-            setError(false);
-            dispatch(addNote(note));
+            dispatch(addNote(note)); // burada asenkron sorunu var, bunu handleChange de hallet if id kontrolü yaparak
             dispatch(setIsShowForm(false));
         } else {
             setError(true);
         }
-        
     }
-
 
     return(
         <Box sx={{width:"50%", minHeight:"100vh", bgcolor: "#CCD1D1"}}>
