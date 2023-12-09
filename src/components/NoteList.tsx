@@ -13,11 +13,18 @@ export default function NoteList() {
         dispatch(setIsShowForm(true));
     }
 
-    const Notes = notes.map((note,index) => {
+    const Notes = notes.map((note) => {
         return(
-            <Note key={index} title={note.title} content={note.content} color={note.color} date={note.date} />
+            <Note key={note.id}
+                id= {note.id}
+                title={note.title} 
+                content={note.content} 
+                color={note.color} 
+                date={note.date} 
+            />
         )
     })
+    //console.log(notes);
     // notelist overflow olayini unutma
     return(
         <Box width="50%" bgcolor="#D7DBDD" minHeight="100vh">
