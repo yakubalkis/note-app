@@ -1,8 +1,8 @@
 import { Box, Button, FormControlLabel, FormLabel, Radio, RadioGroup, Stack, TextField, Typography } from "@mui/material";
 import BackIcon from "../img/icon-back.png";
 import { useAppDispatch, useAppSelector } from "../features/hooks";
-import { addNote, setIsShowForm } from "../features/notesSlice";
-import { useState } from "react";
+import { Note, addNote, setIsShowForm, updateNote } from "../features/notesSlice";
+import { useEffect, useState } from "react";
 import uniqueId from 'lodash/uniqueId';
 import getDate from "../utils/getDate";
 
@@ -11,15 +11,31 @@ export default function NoteForm() {
     const dispatch = useAppDispatch();
     const notes = useAppSelector(state => state.notesSlice.notes);
     const [note, setNote] = useState({
-                                        id:uniqueId((Math.floor(Math.random() * (+100)))+"_"), 
-                                        title: "", content:"", 
+                                        id:uniqueId((Math.floor(Math.random() * (100)))+"_"), 
+                                        title: "", 
+                                        content:"", 
                                         color: "", 
                                         date: getDate()
                                     });
     const [error, setError] = useState(false);
+    const updatedNoteId = localStorage.getItem("updatedNoteId");
+
+    useEffect(() => {
+        if(updatedNoteId !== null) {
+            const willBeUpdatedNote : Note = notes.find((note) => note.id === updatedNoteId) as Note;
+            setNote({
+                id: willBeUpdatedNote.id,
+                title: willBeUpdatedNote.title,
+                content:willBeUpdatedNote.content,
+                color: willBeUpdatedNote.color,
+                date: willBeUpdatedNote.date
+            });
+        }
+    }, []);
 
     function handleClickBackAndCancel() {
         dispatch(setIsShowForm(false));
+        localStorage.removeItem("updatedNoteId");
     }
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -33,12 +49,17 @@ export default function NoteForm() {
         });
     }
 
-    async function handleSaveBtn() {
+    function handleSaveBtn() {
         const title = note.title.replace(/\s+/g,' ').trim(); // remove junk spaces
         const content = note.content.replace(/\s+/g,' ').trim();
        
         if(title !== "" && content !== "") { // check if string is blank
-            dispatch(addNote(note)); // burada asenkron sorunu var, bunu handleChange de hallet if id kontrolü yaparak
+            if(updatedNoteId === null) { // create new note
+                dispatch(addNote(note));
+            } else { // update note
+                dispatch(updateNote(note));
+                localStorage.removeItem("updatedNoteId");
+            }
             dispatch(setIsShowForm(false));
         } else {
             setError(true);
@@ -54,12 +75,13 @@ export default function NoteForm() {
                             <Typography component="p" fontWeight={600}>Back</Typography>
                         </Button>
                     </Stack>
-                    <Typography sx={{marginTop: "2rem", color:"#03608E" ,fontFamily:"Georgia, serif;"}} variant="h4">Create a new note...</Typography>
+                    <Typography sx={{marginTop: "2rem", color:"#03608E" ,fontFamily:"Georgia, serif;"}} variant="h4">{updatedNoteId === null ? "Create a new note..." : "Update your note..."}</Typography>
                     <Stack spacing={2} sx={{direction:"column", marginTop:"3rem", width:"80%"}}>
                         <TextField label="Title" required sx={{bgcolor: "white"}} name="title" value={note.title} onChange={handleChange} />
                         <TextField label="Content" required sx={{bgcolor: "white"}} name="content" value={note.content} onChange={handleChange} />
                         {error && <Typography color="error">You must write title and content!</Typography>}
                     </Stack>
+                    {updatedNoteId === null && 
                     <Stack sx={{marginTop: "2rem"}}>
                             <FormLabel id="color-label"
                                 >Choose the color of your note
@@ -76,6 +98,7 @@ export default function NoteForm() {
                                 <FormControlLabel control={<Radio />} label="Red" value="red" sx={{color:"#890000"}} />
                             </RadioGroup>
                     </Stack>
+                    }
                     <Stack direction="row" spacing={2} sx={{marginTop: "2rem"}}>
                         <Button 
                             variant="outlined" 
