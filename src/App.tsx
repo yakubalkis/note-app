@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react';
-import NoteList from './components/NoteList';
+import { useEffect } from 'react';
 import { Stack } from '@mui/material';
 import { useAppDispatch, useAppSelector } from './features/hooks';
-import NoteForm from './components/NoteForm';
 import { setNotesFromLocalStorage } from './features/notesSlice';
+import NoteList from './components/NoteList';
+import NoteForm from './components/NoteForm';
 
 function App() {
-  const isShowForm = useAppSelector(state => state.notesSlice.isShowForm);
+  const isShowForm = useAppSelector(state => state.notesSlice.isShowForm); // to use for conditional rendering
   const dispatch = useAppDispatch();
 
   useEffect(() => { // after refresh, this is invoked once time
-    dispatch(setNotesFromLocalStorage());
+    dispatch(setNotesFromLocalStorage()); // get notes from local and set data at redux
+    localStorage.removeItem("updatedNoteId"); // remove item - (user can refresh the page when updates the note)
   }, []);
 
   return (
