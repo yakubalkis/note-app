@@ -11,11 +11,11 @@ export default function NoteForm() {
     const dispatch = useAppDispatch();
     const notes = useAppSelector(state => state.notesSlice.notes);
     const [note, setNote] = useState({
-                                        id:uniqueId((Math.floor(Math.random() * (100)))+"_"), 
+                                        id:uniqueId((Math.floor(Math.random() * (100)))+"_"), // set unique id
                                         title: "", 
                                         content:"", 
                                         color: "", 
-                                        date: getDate()
+                                        date: getDate() // set date
                                     });
     const [error, setError] = useState(false);
     const updatedNoteId = localStorage.getItem("updatedNoteId");
@@ -23,7 +23,7 @@ export default function NoteForm() {
     useEffect(() => {
         if(updatedNoteId !== null) {
             const willBeUpdatedNote : Note = notes.find((note) => note.id === updatedNoteId) as Note;
-            setNote({
+            setNote({ // set note state with data to be updated
                 id: willBeUpdatedNote.id,
                 title: willBeUpdatedNote.title,
                 content:willBeUpdatedNote.content,
@@ -34,11 +34,11 @@ export default function NoteForm() {
     }, []);
 
     function handleClickBackAndCancel() {
-        dispatch(setIsShowForm(false));
-        localStorage.removeItem("updatedNoteId");
+        dispatch(setIsShowForm(false)); // display NoteList component
+        localStorage.removeItem("updatedNoteId"); // remove id anyway
     }
 
-    function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    function handleChange(event: React.ChangeEvent<HTMLInputElement>) { // get data from inputs and set it state
         const {name, value} = event.target;
 
         setNote(prevState => {
@@ -58,9 +58,9 @@ export default function NoteForm() {
                 dispatch(addNote(note));
             } else { // update note
                 dispatch(updateNote(note));
-                localStorage.removeItem("updatedNoteId");
+                localStorage.removeItem("updatedNoteId"); // not need anymore
             }
-            dispatch(setIsShowForm(false));
+            dispatch(setIsShowForm(false)); // after saving, close NoteForm, display NoteList component
         } else {
             setError(true);
         }

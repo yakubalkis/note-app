@@ -10,7 +10,7 @@ export default function NoteList() {
     const notes = useAppSelector(state => state.notesSlice.notes);
 
     function handleClickAddBtn() {
-        dispatch(setIsShowForm(true));
+        dispatch(setIsShowForm(true)); // display NoteForm
     }
 
     const Notes = notes.map((note) => {
@@ -23,7 +23,7 @@ export default function NoteList() {
                 date={note.date} 
             />
         )
-    })
+    });
 
     return(
         <Box sx={{

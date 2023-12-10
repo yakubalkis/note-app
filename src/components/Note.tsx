@@ -19,9 +19,9 @@ export default function Note({id, title, content, color, date}: NoteType) {
     }
 
     function handleUpdate(id:string) {
-       dispatch(setIsShowForm(true));
-       localStorage.setItem("updatedNoteId", id); 
-    }
+       dispatch(setIsShowForm(true)); // display NoteForm
+       localStorage.setItem("updatedNoteId", id); // set the id of the note to be updated to the local storage
+    }                                             // this id will be used in NoteForm component to populate the form with data(update process)
 
     return(
         <>
