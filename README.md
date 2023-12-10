@@ -252,15 +252,4 @@ export default function getDate() {
   const date = today.getDate();
   return `${date}/${month}/${year}`;
 }
-```
-
-
-
-
-
-
-
-
- 
- 
-
+``` 
