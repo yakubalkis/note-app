@@ -36,7 +36,8 @@ export const notesSlice = createSlice({
                 } else { // update item
                     return action.payload;
                 }
-            })
+            });
+            localStorage.setItem("notes", JSON.stringify(state.notes));
         },
         deleteNote(state, action: PayloadAction<string>) {
             state.notes = state.notes.filter((note) => {
