@@ -32,16 +32,14 @@ export default function Note({id, title, content, color, date}: NoteType) {
                 </ListItemAvatar>
             </ListItemIcon>
             <ListItemText 
-                sx={{marginBottom: "2.5rem"}}
+                sx={{marginBottom: "2.5rem", overflow:"hidden"}}
                 primary={<Typography sx={{fontWeight:"900"}}>{title}</Typography>}
                 secondary={content} 
                 secondaryTypographyProps={{sx: {fontFamily: "Inter, sans-serif;"}}}
             />
             <Typography sx={{position:"absolute", bottom: "0",opacity:"0.5",fontSize:"0.9rem"}}>{date}</Typography>
             <Stack direction="column" spacing={1} sx={{marginLeft: "5px"}}>
-                <Button variant="contained" color="error" size="small" sx={{
-                    
-                    }} onClick={() => handleDelete(id)}>
+                <Button variant="contained" color="error" size="small" onClick={() => handleDelete(id)}>
                     <img style={{width: "20px"}} src={TrashIcon} />
                 </Button>
                 <Button variant="contained" color="success" size="small" onClick={() => handleUpdate(id)}>
