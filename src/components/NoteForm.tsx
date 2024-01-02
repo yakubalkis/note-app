@@ -132,14 +132,16 @@ export default function NoteForm() {
 
                     <Stack spacing={2} sx={{direction:"column", marginTop:"3rem", width:"80%"}}>
                         <TextField 
-                            label="Title" 
+                            data-test-form = "title-input" 
+                            label="Title"
                             required 
                             sx={{bgcolor: "white"}} 
                             name="title" value={note.title} 
                             onChange={handleChange} 
                         />
                         <TextField 
-                            label="Content" 
+                            data-test-form = "content-input" 
+                            label="Content"
                             required 
                             sx={{bgcolor: "white"}} 
                             name="content" 
@@ -154,16 +156,18 @@ export default function NoteForm() {
                             <FormLabel id="color-label"
                                 >Choose the color of your note
                             </FormLabel>
-                            <RadioGroup 
+                            <RadioGroup
+                                data-test-form="radio-btn"
+                                className="radio-group"
                                 name="color" 
                                 aria-labelledby="color-label"
                                 value={note.color}
                                 onChange={handleChange}
                                 row
                             >
-                                <FormControlLabel control={<Radio />} label="Yellow" value="yellow" sx={{color:"#FDF604"}} />
-                                <FormControlLabel control={<Radio />} label="Blue" value="blue" sx={{color:"#001F89"}} />
-                                <FormControlLabel control={<Radio />} label="Red" value="red" sx={{color:"#890000"}} />
+                                <FormControlLabel control={<Radio />} className="yellow" label="Yellow" value="yellow" sx={{color:"#FDF604"}} />
+                                <FormControlLabel control={<Radio />} className="blue" label="Blue" value="blue" sx={{color:"#001F89"}} />
+                                <FormControlLabel control={<Radio />} className="red" label="Red" value="red" sx={{color:"#890000"}} />
                             </RadioGroup>
                     </Stack>
                     }
@@ -175,7 +179,8 @@ export default function NoteForm() {
                             onClick={handleClickBackAndCancel}
                         >Cancel
                         </Button>
-                        <Button 
+                        <Button
+                            data-test-form="submit-btn"
                             variant="outlined" 
                             color="success" 
                             sx={{bgcolor:"white"}} 

@@ -53,6 +53,7 @@ export default function NoteList() {
 
                     <Stack>
                         <Button 
+                            data-test-form="add-note-btn"
                             color="primary" 
                             variant="contained" 
                             sx={{textTransform: "inherit", fontWeight:"700", fontSize: {xs:".7rem",sm:".8rem",md:"1rem"}, marginTop:".4rem"}}
