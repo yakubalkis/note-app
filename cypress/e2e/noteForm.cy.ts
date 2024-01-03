@@ -10,11 +10,7 @@ describe('FORM Test', () => {
 
   it("Expected to be added a new note", () => {
     const noteObj = new noteForm();
-    noteObj.clickAddNoteBtn();
-    noteObj.enterTitle("Title 1");
-    noteObj.enterContent("Content 1");
-    noteObj.clickRadioBtn("red");
-    noteObj.clickSaveBtn();
+    noteObj.createNote("Title1", "Content1", "blue");
   });
 
   it("Expected to be seen error text as saving missing title and content input", () => {
@@ -23,7 +19,16 @@ describe('FORM Test', () => {
     noteObj.enterTitle(" ");
     noteObj.enterContent("     ");
     noteObj.clickSaveBtn();
-    noteObj.shouldExistErrorText();
+    noteObj.shouldExistErrorTextAndContainMessage("You must write title and content!");
+  });
+
+  it("Expected to be updated a note", () => {
+    const noteObj = new noteForm(); 
+    noteObj.createNote("Title1", "Content1", "red"); // create note
+    noteObj.clickUpdateBtn(); // update that note
+    noteObj.enterTitle(" Updated");
+    noteObj.enterContent(" Updated"); 
+    noteObj.clickSaveBtn();
   });
 
   
