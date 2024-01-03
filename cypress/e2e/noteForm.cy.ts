@@ -8,16 +8,23 @@ describe('FORM Test', () => {
     cy.visit(baseUrl);
   })
 
-  it("has expected adding a new note", () => {
+  it("Expected to be added a new note", () => {
     const noteObj = new noteForm();
     noteObj.clickAddNoteBtn();
     noteObj.enterTitle("Title 1");
     noteObj.enterContent("Content 1");
-    noteObj.clickRadioBtn("blue");
+    noteObj.clickRadioBtn("red");
     noteObj.clickSaveBtn();
   });
 
-  it("has expected to see error when trying to save missing data", () => {
-    
-  })
+  it("Expected to be seen error text as saving missing title and content input", () => {
+    const noteObj = new noteForm();
+    noteObj.clickAddNoteBtn();
+    noteObj.enterTitle(" ");
+    noteObj.enterContent("     ");
+    noteObj.clickSaveBtn();
+    noteObj.shouldExistErrorText();
+  });
+
+  
 })
