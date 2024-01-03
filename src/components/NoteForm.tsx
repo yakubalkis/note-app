@@ -148,7 +148,7 @@ export default function NoteForm() {
                             value={note.content} 
                             onChange={handleChange} 
                         />
-                        {error && <Typography color="error">You must write title and content!</Typography>}
+                        {error && <Typography data-test-form="error-text"  color="error">You must write title and content!</Typography>}
                     </Stack>
 
                     {updatedNoteId === null && 

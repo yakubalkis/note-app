@@ -7,6 +7,7 @@ class noteForm {
         contentInput: () => cy.get('[data-test-form="content-input"]'),
         radioBtn: (color) => cy.get('[data-test-form="radio-btn"]').children(`.${color}`),
         saveBtn: () => cy.get('[data-test-form="submit-btn"]'),
+        errorText: () => cy.get('[data-test-form="error-text"]')
     }
 
     clickAddNoteBtn() {
@@ -27,7 +28,11 @@ class noteForm {
 
     clickSaveBtn() {
         this.elements.saveBtn().click();
-    }    
+    }
+
+    shouldExistErrorText() {
+        this.elements.errorText().contains("You must write title and content!");
+    }
 
 }
 
