@@ -42,7 +42,7 @@ export default function Note({id, title, content, color, date}: NoteType) {
                 <Button variant="contained" color="error" size="small" onClick={() => handleDelete(id)}>
                     <img style={{width: "20px"}} src={TrashIcon} />
                 </Button>
-                <Button variant="contained" color="success" size="small" onClick={() => handleUpdate(id)}>
+                <Button data-test-form="update-btn" variant="contained" color="success" size="small" onClick={() => handleUpdate(id)}>
                     <img style={{width: "20px"}} src={WriteIcon} />
                 </Button>
             </Stack> 
