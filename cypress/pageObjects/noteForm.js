@@ -8,7 +8,10 @@ class noteForm {
         radioBtn: (color) => cy.get('[data-test-form="radio-btn"]').children(`.${color}`),
         saveBtn: () => cy.get('[data-test-form="submit-btn"]'),
         errorText: () => cy.get('[data-test-form="error-text"]'),
-        updateBtn: () => cy.get('[data-test-form="update-btn"]')
+        updateBtn: () => cy.get('[data-test-form="update-btn"]'),
+        deleteBtn: () => cy.get('[data-test-form="delete-btn"]'),
+        noteCard: () => cy.get('[data-test-form="note-card"]'),
+        noteTitleAndContent: () => cy.get('[data-test-form="note-title-and-content"]')
     }
 
     clickAddNoteBtn() {
@@ -19,16 +22,8 @@ class noteForm {
         this.elements.titleInput().type(title);
     }
 
-    shouldTitleContain(title, index) {
-        
-    }
-
     enterContent(content) {
         this.elements.contentInput().type(content);
-    }
-
-    shouldContentContain(title, index) {
-
     }
 
     clickRadioBtn(color) {
@@ -53,6 +48,19 @@ class noteForm {
         this.enterContent(content);
         this.clickRadioBtn(color);
         this.clickSaveBtn();
+    }
+
+    clickDeleteBtn() {
+        this.elements.deleteBtn().click();
+    }
+
+    shouldNotExistNoteCard() {
+        this.elements.noteCard().should('not.exist');
+    }
+
+    checkTitleAndContentText(title, content) {
+        this.elements.noteTitleAndContent().children().first().contains(title);
+        this.elements.noteTitleAndContent().children().eq(1).contains(content);
     }
 
 }

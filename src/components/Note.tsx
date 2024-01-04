@@ -25,13 +25,14 @@ export default function Note({id, title, content, color, date}: NoteType) {
 
     return(
         <>
-        <ListItem>
+        <ListItem data-test-form="note-card">
             <ListItemIcon sx={{marginBottom: "1.5rem"}}>
                 <ListItemAvatar>
                     <Avatar variant="square" src={PinIcon} sx={{bgcolor: color==="red" ? red : color==="blue" ? blue : color==="yellow" ? yellow : "" }} />
                 </ListItemAvatar>
             </ListItemIcon>
             <ListItemText 
+                data-test-form="note-title-and-content" 
                 sx={{marginBottom: "2.5rem", overflow:"hidden"}}
                 primary={<Typography sx={{fontWeight:"900"}}>{title}</Typography>}
                 secondary={content} 
@@ -39,7 +40,7 @@ export default function Note({id, title, content, color, date}: NoteType) {
             />
             <Typography sx={{position:"absolute", bottom: "0",opacity:"0.5",fontSize:"0.9rem"}}>{date}</Typography>
             <Stack direction="column" spacing={1} sx={{marginLeft: "5px"}}>
-                <Button variant="contained" color="error" size="small" onClick={() => handleDelete(id)}>
+                <Button data-test-form="delete-btn" variant="contained" color="error" size="small" onClick={() => handleDelete(id)}>
                     <img style={{width: "20px"}} src={TrashIcon} />
                 </Button>
                 <Button data-test-form="update-btn" variant="contained" color="success" size="small" onClick={() => handleUpdate(id)}>
