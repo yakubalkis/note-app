@@ -1,10 +1,11 @@
-# Note App - (TS + React + Redux + MUI)
+# Note App - (TS + React + Redux + MUI + Cypress)
 This project is a note application which user can create, delete and update the notes.
 
 Live Link: https://note-app-alkis.netlify.app/
 
 ## Technologies used
-• Used TypeScript, React, Redux Toolkit and MUI.
+• Used TypeScript, React, Redux Toolkit and MUI. <br>
+• Used Cypress for E2E and component testing. <br>
 
 ## Run in local
 • Download repository,<br>
@@ -12,24 +13,17 @@ Live Link: https://note-app-alkis.netlify.app/
 ```> npm install```, <br>
 ```> npm start``` <br>
 
+## Cypress E2E & Component testing
+After setup, enter the command ```> npm run cypress``` in terminal and select testing type which is e2e or component. <br>
+### Component Testing
+![image](https://github.com/yakubalkis/note-app-with-cypress-e2e-testing/assets/97192201/8b89d02b-688b-4c56-bd68-b41b97108f40)
+
+### E2E Testing
+![image](https://github.com/yakubalkis/note-app-with-cypress-e2e-testing/assets/97192201/87f5f9ca-fbe6-447f-8b30-9a538362f0de)
+
 ## Business Logic
 
-### 1. Project Structure
-```bash
-.
-├── src
-    ├──  components       # component files (Note, NoteList, NoteForm)
-    ├──  features         # redux files (store,hooks,notesSlice)
-    ├──  img              # icons
-    ├──  utils            # utilities (getDate)
-├── App.tsx                   
-├── index.tsx                     
-├── ...                    
-```
-
-<hr>
-
-### 2. Redux Toolkit Usage
+### 1. Redux Toolkit Usage
 • It's placed in "features" folder. It includes the files store.ts, notesSlice.ts and hooks.ts.<br>
 
 • In ```store.ts```, I set up a general Redux store. Used ```configureStore()``` provided by redux toolkit to create a redux store. Given ```notesSlice.reducer``` as a reducer of notesSlice to that configureStore. <br>
@@ -133,7 +127,7 @@ setNotesFromLocalStorage(state) {
 ```
 <hr>
 
-### 3. Components
+### 2. Components
 
 #### - ```Note.tsx :```
 • It takes id,title,content,color and date as a prop. Delete and Update buttons are handled in this component.
@@ -242,7 +236,7 @@ Then it displays it in List component.
 ...
 ```
 
-### 4. Utils (getDate.ts)
+### 3. Utils (getDate.ts)
 It contains of getDate function, it returns the current date.
 ```js
 export default function getDate() {
